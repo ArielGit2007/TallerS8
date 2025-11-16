@@ -1,11 +1,3 @@
-#include <stdio.h>
+void LimitacionesIniciales(int *tiempo, int *Pantallas, int *Procesadores, int *Memorias, int *Targetas);
+void validardatos(int x, void *y, char tipo);
 
-void main(){
-
-int Demanda[5];
-char Prodcuto[5][50];
-
-printf("<<OPTMIZACION DE PRODUCCION DE COMPONENTES ELECTRONICOS\n")
-
-
-}

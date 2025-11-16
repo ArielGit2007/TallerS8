@@ -1,21 +1,25 @@
 #include <stdio.h>
+#include "funciones.h"
 
 void main(){
 
-int Demanda[5], opc1=0, opc2=0;
-char Prodcuto[5][50];
+int Demanda[5], opc1=0, opc2=0, Pantallas=0, Procesadores=0, Memorias=0, TargetaGráfica=0;
+int tiempoLimite=0,cont=0, Validar=0, TiempoProduccion=0;
+char Producto[5][50], PantallasProducto[5], ProduProcesadores[5], ProduMemorias[5],
+ProduTargetas[5];
+
+LimitacionesIniciales(&tiempoLimite, &Pantallas, &Procesadores, &Memorias, &TargetaGráfica);
 
 do
 {
 printf("<<OPTMIZACION DE PRODUCCION DE COMPONENTES ELECTRONICOS>>\n");
 printf("Puede elegir las siguientes opciones\n");
-printf("1.Ingresar las limitaciones de tiempo y recursos\n");
-printf("2.Ingresar los datos del producto\n");
-printf("3.Editar los datos ingresados\n");
-printf("4. Eliminación de los productos ingresados \n");
-printf("5.Tiempo y cantidad de recursos para cumplir con la demanda\n");
-
-scanf("%d",&opc1);
+printf("1. Ingresar los datos del producto\n");
+printf("2. Editar los datos ingresados\n");
+printf("3. Eliminar un producto \n");
+printf("4. Ingresar la demanda de productos\n");
+Validar=scanf("%d",&opc1);
+validardatos(Validar,&opc1,'i');
 
 switch (opc1)
 {
