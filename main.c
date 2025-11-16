@@ -4,8 +4,9 @@
 void main(){
 
 int Demanda[5], opc1=0, opc2=0, Pantallas=0, Procesadores=0, Memorias=0, TargetaGráfica=0;
-int tiempoLimite=0,cont=0, Validar=0, TiempoProduccion=0;
-char Producto[5][50], PantallasProducto[5], ProduProcesadores[5], ProduMemorias[5],
+int tiempoLimite=0,cont=0, Validar=0, TiempoProduccion[5]={0};
+char Producto[5][50];
+int PantallasProducto[5], ProduProcesadores[5], ProduMemorias[5],
 ProduTargetas[5];
 
 LimitacionesIniciales(&tiempoLimite, &Pantallas, &Procesadores, &Memorias, &TargetaGráfica);
@@ -24,6 +25,7 @@ validardatos(Validar,&opc1,'i');
 switch (opc1)
 {
 case 1:
+    RegistroProductos(Producto,PantallasProducto, ProduProcesadores, ProduMemorias, ProduTargetas, TiempoProduccion, &cont);    
     
     break;
 
