@@ -78,7 +78,7 @@ void RegistroProductos(char Nombre[][50], int *Pantalla, int *Procesadores, int 
     validar=scanf("%d", &Targetas[*cont]);
     validardatos(validar, &Targetas[*cont], 'i');
 
-    printf("Ingrese el tiempo de produccion:\n");
+    printf("Ingrese el tiempo de produccion (en minutos):\n");
     validar=scanf("%d",&Tiempo[*cont]);
     validardatos(validar,&Tiempo[*cont], 'i');
 
@@ -106,7 +106,7 @@ void editarproducto(char Nombre [][50], int *Pantalla, int *Procesadores, int *M
     printf("3. Cantidad de procesadores\n");
     printf("4. Cantidad de memorias\n");
     printf("5. Cantidad de tarjetas graficas\n");
-    printf("6. Tiempo de produccion\n");
+    printf("6. Tiempo de produccion en minutos\n");
     validar = scanf("%d", &opc);
     validardatos(validar, &opc, 'i');
 
@@ -144,7 +144,7 @@ void editarproducto(char Nombre [][50], int *Pantalla, int *Procesadores, int *M
         break;
 
     case 6:
-        printf("Nueva tiempo de produccion: ");
+        printf("Nuevo tiempo de produccion: ");
         validar = scanf("%d", &Tiempo[posicion]);
         validardatos(validar, &Tiempo[posicion], 'i');
         break;
@@ -199,8 +199,8 @@ void Editarlimitaciones(int *Tiempo, int *Pantalla, int *Procesadores, int *Memo
 
    do
    {
-     printf("Elija que quiere editar\n");
-    printf("1. Tiempo limite para la produccion: %d\n", *Tiempo);
+    printf("Elija que quiere editar\n");
+    printf("1. Tiempo limite para la produccion (minutos): %d\n", *Tiempo);
     printf("2. Cantidad de pantallas disponibles: %d\n", *Pantalla);
     printf("3. Cantidad de procesadores disponibles: %d\n", *Procesadores);
     printf("4. Cantidad de memorias disponibles: %d\n", *Memorias);
@@ -241,6 +241,7 @@ void Editarlimitaciones(int *Tiempo, int *Pantalla, int *Procesadores, int *Memo
 
     printf("Seguir editando 1.Si 2.No: ");
     validar=scanf("%d",&opc2);
+    validardatos(validar, &opc2,'i');
 
    } while (opc2==1);
 }
@@ -274,6 +275,102 @@ void Eliminarproductos(char Nombre [][50], int *Pantalla, int *Procesadores, int
 
     printf("producto eliminado correctamente \n");
     }
+
+}
+
+void Pedidoproductos(char Nombre[][50], int *Pantallas, int *Procesadores, int *Memorias, int *Targetas,int PantallasProducto[], int ProduProcesadores[], int ProduMemorias[], int ProduTargetas[], int TiempoProduccion[], int *tiempoLimite ,int *cont){
+
+    int posicion, validar, cantidad;
+
+    if (*cont == 0)
+    {
+        printf("No hay productos registrados para eliminar.\n");
+        return;
+    }
+
+    printf("Productos disponibles: \n");
+    for (int i = 0; i < *cont; i++)
+    {
+        printf("%d. %s \n", i, Nombre[i]);
+    }
+    
+    printf("Seleccione el numero del producto: \n");
+    validar = scanf("%d", &posicion);
+    validardatos(validar, &posicion, 'i');
+
+    if (posicion < 0 || posicion > *cont)
+    {
+        printf("Producto invalido.\n");
+        return;
+    }
+
+
+    printf("Ingrese la cantidad que desea producir del producto %s\n", Nombre[posicion]);
+    validar = scanf("%d", &cantidad);
+    validardatos(validar, &cantidad, 'i');
+
+    //Calculo de recursos y tiempo necesarios
+    int totalPantallas = cantidad * PantallasProducto[posicion];
+    int totalProcesadores = cantidad * ProduProcesadores[posicion];
+    int totalMemorias = cantidad * ProduMemorias[posicion];
+    int totalTarjetas = cantidad * ProduTargetas[posicion];
+    int totalTiempo = cantidad * TiempoProduccion[posicion];
+
+    //confirma que haya suficiente inventario para la produccion y en caso de no ser suficiente rechazar
+    printf("Confirmacion de produccion de %s: \n", Nombre[posicion]);
+    int produccion = 1;
+    if (totalPantallas > *Pantallas)
+    {
+        int FaltanteP= totalPantallas-(*Pantallas);
+        printf("No se puede producir por falta de inventario\n");
+        printf("Faltan %d pantallas\n",FaltanteP);
+        produccion = 0;
+    }
+    if (totalProcesadores > *Procesadores)
+    {
+        int FaltantePr= totalProcesadores-(*Procesadores);
+        printf("No se puede producir por falta de inventario\n");
+        printf("Faltan %d procesadores\n",FaltantePr);
+        produccion = 0;
+    }
+    if (totalMemorias > *Memorias)
+    {
+        int FaltanteM=totalMemorias-(*Memorias);
+        printf("No se puede producir por falta de inventario\n");
+        printf("Faltan %d memorias\n", FaltanteM);
+        produccion = 0;
+    }
+    if (totalTarjetas > *Targetas)
+    {
+        int FaltanteT=totalTarjetas-(*Targetas);
+        printf("No se puede producir por falta de inventario\n");
+        printf("Faltan %d targetas graficas\n", FaltanteT);
+        produccion = 0;
+    }
+    if (totalTiempo > *tiempoLimite)
+    {
+        printf("No se puede producir, supera el limite de tiempo\n");
+        produccion = 0;
+    }
+    if (produccion == 1)
+    {
+        printf("se puede cumplir con la demanda de %d unidades de %s \n", cantidad, Nombre[posicion]);
+
+        *tiempoLimite-=totalTiempo;
+        //resta de inventario
+        *Pantallas -= totalPantallas;
+        *Procesadores -= totalProcesadores;
+        *Memorias -= totalMemorias;
+        *Targetas -= totalTarjetas;
+
+        printf("Tiempo de produccion disponible: %d\n", *tiempoLimite);
+        printf("Inventario actualizado: \n");
+        printf("Pantallas: %d\n", *Pantallas);
+        printf("Procesadores: %d\n", *Procesadores);
+        printf("Memorias: %d\n", *Memorias);
+        printf("Tarjetas graficas: %d\n", *Targetas);
+    }
+    
 
 }
 

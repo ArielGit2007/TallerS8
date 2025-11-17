@@ -38,7 +38,7 @@ case 4:
     Eliminarproductos(Producto, PantallasProducto, ProduProcesadores, ProduMemorias, ProduTargetas, TiempoProduccion, &cont);
     break;
 case 5:
-
+    Pedidoproductos(Producto, &Pantallas, &Procesadores, &Memorias, &TargetaGráfica, PantallasProducto, ProduProcesadores, ProduMemorias, ProduTargetas, TiempoProduccion, &tiempoLimite, &cont);
     break;
 default:
     break;
