@@ -17,8 +17,9 @@ printf("<<OPTMIZACION DE PRODUCCION DE COMPONENTES ELECTRONICOS>>\n");
 printf("Puede elegir las siguientes opciones\n");
 printf("1. Ingresar los datos del producto\n");
 printf("2. Editar los datos ingresados\n");
-printf("3. Eliminar un producto \n");
-printf("4. Ingresar la demanda de productos\n");
+printf("3. Editar limitaciones de produccion\n");
+printf("4. Eliminar un producto\n");
+printf("5. Ingresar la demanda de productos\n");
 Validar=scanf("%d",&opc1);
 validardatos(Validar,&opc1,'i');
 
@@ -26,11 +27,9 @@ switch (opc1)
 {
 case 1:
     RegistroProductos(Producto,PantallasProducto, ProduProcesadores, ProduMemorias, ProduTargetas, TiempoProduccion, &cont);    
-    
     break;
-
 case 2:
-
+    editarproducto(Producto, PantallasProducto, ProduProcesadores, ProduMemorias, ProduTargetas, TiempoProduccion, &cont);
     break;
 case 3:
 
@@ -45,8 +44,9 @@ default:
     break;
 }
 
-printf("Desea continuar");
-scanf("%d",&opc2);
+printf("Desea continuar 1.Si 2.No: ");
+Validar=scanf("%d",&opc2);
+validardatos(Validar, &opc2,'i');
 
 } while (opc2==1);
 }
