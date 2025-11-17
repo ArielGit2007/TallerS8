@@ -169,7 +169,7 @@ int Buscarnombre(char Nombre [][50], int *Pantalla, int *Procesadores, int *Memo
     int Encontrado=-1; //En esta variable se guardará el indice del producto
     char c[1][100];
 
-    printf("Ingrese el nombre del producto que desea editar (tenga cuidado con los espacios)\n");
+    printf("Ingrese el nombre del producto que desea encontrar (tenga cuidado con los espacios)\n");
     fgets(BuscarProducto[0],50, stdin);
     BorrarSaltolinea (BuscarProducto[0]);//Borrar el salto de linea
     
@@ -194,7 +194,89 @@ int Buscarnombre(char Nombre [][50], int *Pantalla, int *Procesadores, int *Memo
     
 }
 
-void 
+void Editarlimitaciones(int *Tiempo, int *Pantalla, int *Procesadores, int *Memorias, int *Targetas){
+    int opc, opc2=1, validar;
+
+   do
+   {
+     printf("Elija que quiere editar\n");
+    printf("1. Tiempo limite para la produccion: %d\n", *Tiempo);
+    printf("2. Cantidad de pantallas disponibles: %d\n", *Pantalla);
+    printf("3. Cantidad de procesadores disponibles: %d\n", *Procesadores);
+    printf("4. Cantidad de memorias disponibles: %d\n", *Memorias);
+    printf("5. Cantidad de targetas graficas disponibles: %d\n", *Targetas);
+    validar=scanf("%d",&opc);
+    validardatos(validar,&opc,'i');
+
+    switch (opc)
+    {
+    case 1:
+        printf("Ingrese el nuevo tiempo limite para la produccion: ");
+        validar=scanf("%d",Tiempo);
+        validardatos(validar,Tiempo,'i');
+        break;
+    case 2:
+        printf("Ingrese la nueva cantidad de pantalas: ");
+        validar=scanf("%d",Pantalla);
+        validardatos(validar,Pantalla,'i');
+        break;
+    case 3:
+        printf("Ingrese la nueva cantidad de procesadores: ");
+        validar=scanf("%d",Procesadores);
+        validardatos(validar,Procesadores,'i');
+        break;
+    case 4: 
+        printf("Ingrese la nueva cantidad de memorias: ");
+        validar=scanf("%d",Memorias);
+        validardatos(validar,Memorias,'i');
+        break;
+    case 5: 
+        printf("Ingrese la nueva cantidad de targetas graficas: ");
+        validar=scanf("%d",Targetas);
+        validardatos(validar,Targetas,'i');
+        break;
+    default:
+        break;
+    }
+
+    printf("Seguir editando 1.Si 2.No: ");
+    validar=scanf("%d",&opc2);
+
+   } while (opc2==1);
+}
+
+void Eliminarproductos(char Nombre [][50], int *Pantalla, int *Procesadores, int *Memorias, int *Targetas, int *Tiempo, int *cont){
+  
+    if (*cont == 0)
+    {
+        printf("No hay productos registrados para eliminar.\n");
+        return;
+    }
+
+    int posicion;
+
+    posicion=Buscarnombre(Nombre, Pantalla, Procesadores, Memorias, Targetas, Tiempo, cont);
+
+    
+    if (posicion!=-1)
+    {
+        for (int i = posicion; i < *cont-1; i++)
+    {
+        strcpy(Nombre[i], Nombre[i+1]); //strcpy o copiar cadena copia el contenido de una cadena de caracteres a otra
+        Pantalla[i]= Pantalla[i+1];
+        Procesadores[i]= Procesadores[i+1];
+        Memorias[i]= Memorias[i+1];
+        Targetas[i]= Targetas[i+1];
+        Tiempo[i]= Tiempo[i+1]; //los datos del siguiente se copian al lugar del producto eliminado
+    }
+
+    (*cont)--; //disminuye el contador de productos
+
+    printf("producto eliminado correctamente \n");
+    }
+
+}
+
 void BorrarSaltolinea(char *a)
 {
     int len = strlen(a);

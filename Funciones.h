@@ -4,3 +4,5 @@ void RegistroProductos(char Nombre[][50], int *Pantalla, int *Procesadores, int 
 void BorrarSaltolinea(char *a);
 void editarproducto(char Nombre [][50], int *Pantalla, int *Procesadores, int *Memorias, int *Targetas, int *Tiempo, int *cont);
 int Buscarnombre(char Nombre [][50], int *Pantalla, int *Procesadores, int *Memorias, int *Targetas, int *Tiempo, int *cont);
+void Editarlimitaciones(int *Tiempo, int *Pantalla, int *Procesadores, int *Memorias, int *Targetas);
+void Eliminarproductos(char Nombre [][50], int *Pantalla, int *Procesadores, int *Memorias, int *Targetas, int *Tiempo, int *cont);

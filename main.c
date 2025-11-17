@@ -32,10 +32,10 @@ case 2:
     editarproducto(Producto, PantallasProducto, ProduProcesadores, ProduMemorias, ProduTargetas, TiempoProduccion, &cont);
     break;
 case 3:
-
+    Editarlimitaciones(&tiempoLimite, &Pantallas, &Procesadores, &Memorias, &TargetaGráfica);
     break;
 case 4:
-
+    Eliminarproductos(Producto, PantallasProducto, ProduProcesadores, ProduMemorias, ProduTargetas, TiempoProduccion, &cont);
     break;
 case 5:
 
